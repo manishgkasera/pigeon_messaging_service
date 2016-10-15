@@ -3,6 +3,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .static import MESSAGE_STATUS, MESSAGE_STATUS_DICT
 from .tasks import deliver_message
+from urllib.request import urlopen
+from urllib.error import URLError
 
 # Create your models here.
 
@@ -16,13 +18,15 @@ class Message(models.Model):
         return str(self.id) + "|" + self.message + "|" + str(self.status)
 
     def deliver(self):
-        if self.already_processed:
+        if self.already_processed():
             return True
         try:
+            urlopen(self.url)
+        except URLError as e:
+            return False
+        else:
             self.mark_as_sent()
             return True
-        except ValueError as exc:
-            return False
 
     def already_processed(self):
         if self.status != MESSAGE_STATUS_DICT['queued']:
