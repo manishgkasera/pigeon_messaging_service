@@ -8,7 +8,7 @@ from django.conf import settings
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'plivo.settings')
 
-app = Celery('plivo', broker='redis://localhost', backend='redis://localhost')
+app = Celery('plivo', broker='amqp://')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object.
