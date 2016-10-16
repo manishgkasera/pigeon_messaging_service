@@ -13,10 +13,10 @@ from urllib.error import URLError
 class Message(models.Model):
     message = models.TextField()
     url = models.URLField(max_length=1000)
-    status = models.PositiveSmallIntegerField(choices=MESSAGE_STATUS)
+    status = models.PositiveSmallIntegerField(choices=MESSAGE_STATUS, default=MESSAGE_STATUS_DICT['queued'], editable=False)
 
     def __str__(self):
-        return str(self.id) + "|" + self.message + "|" + str(self.status)
+        return str(self.id) + "|" + self.message + "|" + self.humanized_status()
 
     def deliver(self):
         if self.already_processed():
