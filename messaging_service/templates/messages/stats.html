@@ -6,5 +6,18 @@
 </head>
 <body>
 <h1>Stats</h1>
+
+<table>
+    <tr>
+        <th>Status</th>
+        <th>Count</th>
+    </tr>
+    {% for stat in stats %}
+    <tr>
+        <td>{{ stat['status'] }}</td>
+        <td>{{ stat['count'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
 </body>
 </html>

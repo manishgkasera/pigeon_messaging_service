@@ -50,7 +50,6 @@ class Message(models.Model):
     def humanized_status(self):
         return MESSAGE_STATUS[self.status][1]
 
-
 @receiver(post_save, sender=Message, dispatch_uid="enqueue_for_delivery")
 def enqueue_for_delivery(sender, instance, created, **kwargs):
     if instance.status == MESSAGE_STATUS_DICT['queued'] and created:
