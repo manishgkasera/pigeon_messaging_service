@@ -6,6 +6,7 @@ from .tasks import deliver_message
 from urllib.request import urlopen
 from urllib.error import URLError
 
+
 # Create your models here.
 
 
@@ -34,7 +35,6 @@ class Message(models.Model):
         else:
             return False
 
-
     def mark_as_sent(self):
         self.status = MESSAGE_STATUS_DICT['sent']
         self.save()
@@ -47,10 +47,11 @@ class Message(models.Model):
         self.status = MESSAGE_STATUS_DICT['failed']
         self.save()
 
+    def humanized_status(self):
+        return MESSAGE_STATUS[self.status][1]
+
 
 @receiver(post_save, sender=Message, dispatch_uid="enqueue_for_delivery")
 def enqueue_for_delivery(sender, instance, created, **kwargs):
     if instance.status == MESSAGE_STATUS_DICT['queued'] and created:
         deliver_message.delay(instance)
-
-
