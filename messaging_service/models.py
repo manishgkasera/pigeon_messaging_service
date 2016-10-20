@@ -3,8 +3,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .static import MESSAGE_STATUS, MESSAGE_STATUS_DICT
 from .tasks import deliver_message
-from urllib.request import urlopen
-from urllib.error import URLError
+from requests.exceptions import RequestException
+import requests
 
 
 # Create your models here.
@@ -22,8 +22,8 @@ class Message(models.Model):
         if self.already_processed():
             return True
         try:
-            urlopen(self.url)
-        except URLError as e:
+            requests.post(self.url, data=self.message)
+        except RequestException as e:
             return False
         else:
             self.mark_as_sent()
