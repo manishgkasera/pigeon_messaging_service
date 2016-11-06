@@ -119,3 +119,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+BROKER_TRANSPORT_OPTIONS = {
+    'queue_name_prefix': 'pigeon-',
+    'region': 'ap-southeast-1',
+    'visibility_timeout': 600,
+    'polling_interval': 5,
+}
+
+# CELERY_TASK_RESULT_EXPIRES = 300
+
+CELERY_DEFAULT_QUEUE = "test"
+CELERY_DEFAULT_EXCHANGE = CELERY_DEFAULT_QUEUE
+CELERY_DEFAULT_EXCHANGE_TYPE = CELERY_DEFAULT_QUEUE
+CELERY_DEFAULT_ROUTING_KEY = CELERY_DEFAULT_QUEUE
+CELERY_QUEUES = {
+    CELERY_DEFAULT_QUEUE: {
+        'exchange': CELERY_DEFAULT_QUEUE,
+        'binding_key': CELERY_DEFAULT_QUEUE,
+    }
+}
