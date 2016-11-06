@@ -1,5 +1,5 @@
 """
-WSGI config for plivo project.
+WSGI config for pigeon project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

@@ -9,7 +9,7 @@ from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pigeon.settings')
 
-app = Celery('plivo', broker='sqs://')
+app = Celery('pigeon', broker='sqs://')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object.
