@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'plivo.urls'
+ROOT_URLCONF = 'pigeon.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'plivo.wsgi.application'
+WSGI_APPLICATION = 'pigeon.wsgi.application'
 
 
 # Database
